@@ -13,7 +13,15 @@ The input data was the .csv file of metadata, including features such as Focus, 
 ### Data Visualization
 We see an average Pawpularity score of about 38.04 out 100 and a median of 33. Looking at the histograms of each feature and their score, we do not see much of a difference between 0 for the feature and 1 for the feature.
 
-![](Histogram.png) ![](Features1.png) ![](Features2.png)
+<p align="center">
+  <img src="Histogram.png" alt="Alt text" width="400">
+</p>
+<table>
+  <tr>
+    <td><img src="Features1.png" alt="Features 1"></td>
+    <td><img src="Features2.png" alt="Features 2"></td>
+  </tr>
+</table>
 
 ### Problem Formulation
 I split the data with the input being the metadata features and the output being the Pawpularity. I tried two different models - the Decision Tree Classifier and Random Forest Regressor. As the data had binary explanatory variables and a discrete response variable ranging from 1 to 100, I believed one of those two algorithms would work well.
@@ -26,7 +34,9 @@ Here is where I struggled. The Kaggle challenge states that submissions are scor
 
 Using the Decision Tree Classifier model, I scored 28.11 on the RMSE, and using the Random Forest Regression model, I scored 20.51. However, when looking at the accuracy score for the DTC model, the score came back as .0221. And when I calculated r^2 for the RFR model, r-squared came as -0.0172. 
 
-![](RMSE.png)
+<p align="center">
+  <img src="RMSE.png" alt="Alt text" width="400">
+</p>
 
 ### Conclusions
 Looking at the accuracy score, r-squared value, and the RMSE, both models show low accuracy rates. Given that the histograms showed little difference between the binary categories in affecting the score, I am not surprised by the low result.
@@ -69,9 +79,9 @@ First, separate the data into X and y - with X being all the columns excluding I
   
   	pet_data = pd.read_csv(train)
   
- 	 X = pet_data.drop(columns=['Id','Subject Focus','Pawpularity'])
+ 	X = pet_data.drop(columns=['Id','Subject Focus','Pawpularity'])
   
- 	 y = pet_data['Pawpularity']
+ 	y = pet_data['Pawpularity']
 
 For Decision Tree Classifier:
 	
@@ -103,7 +113,7 @@ For Reduced Forest Regression:
 	  
 	  rmse
 
-  	metrics.r2_score(yValid,y_pred)
+	  metrics.r2_score(yValid,y_pred)
 
 ## Citations
 https://www.kaggle.com/competitions/petfinder-pawpularity-score/data?select=test.csv
