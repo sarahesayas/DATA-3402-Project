@@ -40,49 +40,70 @@ We have the train.csv file that includes all 9,912 data points, with features an
 
 ### Software Setup
 You’ll need the following packages:
-  import pandas as pd
-  im port numpy as np
-  import matplotlib.pyplot as plt
-  %matplotlib inline
-  from sklearn.tree import DecisionTreeClassifier
-  from sklearn.model_selection import train_test_split
-  from sklearn.metrics import accuracy_score
-  from sklearn.metrics import mean_squared_error
-  from sklearn import datasets, metrics
-  from sklearn.ensemble import RandomForestRegressor
+
+  	import pandas as pd
+  
+  	import numpy as np
+  
+  	import matplotlib.pyplot as plt
+  
+ 	%matplotlib inline
+  
+  	from sklearn.tree import DecisionTreeClassifier
+  
+  	from sklearn.model_selection import train_test_split
+  
+  	from sklearn.metrics import accuracy_score
+  
+  	from sklearn.metrics import mean_squared_error
+  
+  	from sklearn import datasets, metrics
+  
+ 	from sklearn.ensemble import RandomForestRegressor
 
 ### Data
 On https://www.kaggle.com/competitions/petfinder-pawpularity-score/overview, click on the Data tab. Scroll down and select the train.csv file and download. You can also download the test.csv and sample_submission.csv. There are also photos, but that is another model/problem formulation entirely. I focused only on the metadata.
 
 ### Training
 First, separate the data into X and y - with X being all the columns excluding Id, Subject Focus, and Pawpularity, and y being just Pawpularity.
-  pet_data = pd.read_csv(train)
-  X = pet_data.drop(columns=['Id','Subject Focus','Pawpularity'])
-  y = pet_data['Pawpularity']
+  
+  	pet_data = pd.read_csv(train)
+  
+ 	 X = pet_data.drop(columns=['Id','Subject Focus','Pawpularity'])
+  
+ 	 y = pet_data['Pawpularity']
 
 For Decision Tree Classifier:
-	model = DecisionTreeClassifier()
-	X_train, X_test, y_train, y_test = train_test_split(X.values,y,test_size=0.2)
+	
+ 	model = DecisionTreeClassifier()
 
-  model.fit(X_train,y_train)
-  predictions = model.predict(X_test)
+ 	X_train, X_test, y_train, y_test = train_test_split(X.values,y,test_size=0.2)
+
+  	model.fit(X_train,y_train)
+  
+  	predictions = model.predict(X_test)
 
 	score = accuracy_score(y_test,predictions)
-  score
+  
+  	score
 
 For Reduced Forest Regression:
-  xVars = data.drop('Pawpularity',axis=1)
-  yVars = data['Pawpularity']
 
-  xTrain, xValid, yTrain, yValid = train_test_split(xVars,yVars,test_size=0.3,random_state=43)
+	  xVars = data.drop('Pawpularity',axis=1)
+	  
+	  yVars = data['Pawpularity']
+	
+	  xTrain, xValid, yTrain, yValid = train_test_split(xVars,yVars,test_size=0.3,random_state=43)
+	
+	  regressor = RandomForestRegressor(n_estimators=50, random_state=43)
+	  
+	  y_pred = pd.DataFrame(y_pred, columns=['yPredict'])
+	
+	  rmse = np.sqrt(mean_squared_error(yValid,y_pred))
+	  
+	  rmse
 
-  regressor = RandomForestRegressor(n_estimators=50, random_state=43)
-  y_pred = pd.DataFrame(y_pred, columns=['yPredict'])
-
-  rmse = np.sqrt(mean_squared_error(yValid,y_pred))
-  rmse
-
-  metrics.r2_score(yValid,y_pred)
+  	metrics.r2_score(yValid,y_pred)
 
 ## Citations
 https://www.kaggle.com/competitions/petfinder-pawpularity-score/data?select=test.csv
